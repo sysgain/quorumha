@@ -1,0 +1,41 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {  
+        "location": {
+            "type": "string",
+            "defaultValue": "eastus",
+            "allowedValues": [
+                "australiasoutheast",
+                "canadacentral",
+                "centralindia",
+                "eastus",
+                "japaneast",
+                "southeastasia",
+                "uksouth",
+                "westeurope",
+                "westus",
+                "westus2"
+            ]
+        }, 
+
+    },
+    "variables": {
+        "lbSettings":{
+            "loadBalancerName":"[concat('Ethereum', variables('suffix'))]",
+            "location":"[parameters('location')]",
+            "loadBalancerBackendAddressPoolName": "[variables('loadBalancerBackendAddressPoolName1')]",
+            "lbFrontEndIpConfigName": "[variables('lbFrontEndIpConfigName1')]",
+            "publicIPAddressName": "[concat(variables('dnsName'), '-publicip')]",
+            "lbID":"[variables('lbID1')]",
+            "lbFrontEndIPConfigID": "[concat(variables('lbID1'),'/frontendIPConfigurations/',parameters('lbSettings').lbFrontEndIpConfigName)]",
+            "lbBackendAddressPoolID": "[concat(variables('lbID1'), '/backendAddressPools/', parameters('lbSettings').loadBalancerBackendAddressPoolName)]",
+        },
+        "suffix": "[substring(uniqueString(resourceGroup().id), 0, 4)]",
+        "lbID1": "[resourceId('Microsoft.Network/loadBalancers', parameters('lbSettings').loadBalancerName)]",
+        "lbFrontEndIpConfigName1": "LoadBalancerFrontEnd",
+        "loadBalancerBackendAddressPoolName1": "LoadBalancerBackend1",
+      },
+    "resources": [
+    ]
+  }
