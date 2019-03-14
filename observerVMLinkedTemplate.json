@@ -1,0 +1,67 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "apiVersionVirtualMachines": {
+      "type": "string"
+    },
+    "apiVersionNetworkInterfaces": {
+      "type": "string"
+    },
+    "storagePerformance": {
+      "type": "string"
+    },
+    "loadBalancerName": {
+      "type": "string"
+    },
+    "loadBalancerBackendAddressPoolName": {
+      "type": "string"
+    },
+    "loadBalancerInboundNatRuleNamePrefix": {
+      "type": "string"
+    },
+    "subnetRef": {
+      "type": "string"
+    },
+    "vmNamePrefix": {
+      "type": "string"
+    },
+    "numVMs": {
+      "type": "int"
+    },
+    "offset": {
+      "type": "int"
+    },
+    "nicPrefix": {
+      "type": "string"
+    },
+    "availabilitySetName": {
+      "type": "string"
+    },
+    "vmSize": {
+      "type": "string"
+    },
+    "adminUsername": {
+      "type": "string"
+    },
+    "adminPassword": {
+      "type": "securestring"
+    },
+    "adminSSHKey": {
+      "type": "string"
+    },
+    "ubuntuImage": {
+      "type": "object"
+    },
+    "namingInfix": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    }
+  },
+  "variables": {
+  },
+  "resources": [
+  ]
+}

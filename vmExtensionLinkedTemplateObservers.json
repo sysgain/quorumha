@@ -1,0 +1,58 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "bmVMNamePrefix": {
+      "type": "string"
+    },
+    "numBMs": {
+      "type": "int"
+    },
+    "voterVMNamePrefix": {
+      "type": "string"
+    },
+    "numVoters": {
+      "type": "int"
+    },
+    "observerVMNamePrefix": {
+      "type": "string"
+    },
+    "numObservers": {
+      "type": "int"
+    },
+    "adminUsername": {
+      "type": "string"
+    },
+    "ethereumAccountPsswd": {
+      "type": "securestring"
+    },
+    "passphrase": {
+      "type": "securestring"
+    },
+    "ethereumNetworkID": {
+      "type": "int"
+    },
+    "gethIPCPort": {
+      "type": "int"
+    },
+    "adminSitePort": {
+      "type": "int"
+    },
+    "cakeshopFqdn": {
+      "type": "string"
+    },
+    "cakeshopStartingPort": {
+      "type": "int"
+    },
+    "artifactsLocationURL": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    }
+  },
+  "variables": {
+  },
+  "resources": [
+  ]
+}
