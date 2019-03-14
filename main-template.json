@@ -9,35 +9,18 @@
                 "description": "String used as a base for naming resources (6 alphanumeric characters or less).  A unique hash is prepended to the string for some resources, while resource-specific information is appended."
             }
         },
-        "authType": {
-            "allowedValues": [
-                "password",
-                "sshPublicKey"
-            ],
-            "type": "String",
-            "metadata": {
-                "description": "Authorization type for SSH access to VMs"
-            }
-        },
         "adminUsername": {
-            "defaultValue": "gethadmin",
+            "defaultValue": "adminuser",
             "type": "String",
             "metadata": {
                 "description": "Administrator username of each deployed VM (alphanumeric characters only)"
             }
         },
         "adminPassword": {
-            "defaultValue": "",
+            "defaultValue": "Password@1234",
             "type": "SecureString",
             "metadata": {
                 "description": "Administrator password for each deployed VM"
-            }
-        },
-        "adminSSHKey": {
-            "defaultValue": "",
-            "type": "String",
-            "metadata": {
-                "description": "SSH RSA public key file as a string"
             }
         },
         "restrictAccess": {
@@ -130,10 +113,23 @@
             }
         },
         "location": {
-            "type": "String"
+            "type": "string",
+            "defaultValue": "eastus",
+            "allowedValues": [
+                "australiasoutheast",
+                "canadacentral",
+                "centralindia",
+                "eastus",
+                "japaneast",
+                "southeastasia",
+                "uksouth",
+                "westeurope",
+                "westus",
+                "westus2"
+            ]
         },
         "baseUrl": {
-            "defaultValue": "https://mprpdfartifactstore.azureedge.net/publicartifacts/enterprise-ethereum-alliance.eea-single-member-525df464-a8d7-4bf5-b9f4-a3be18e9ef0f-quorum-single-member-blockchain-network/Artifacts",
+            "defaultValue": "https://raw.githubusercontent.com/sysgain/quorumha/dev",
             "type": "String",
             "metadata": {
                 "description": "The base URL for dependent assets",
@@ -200,19 +196,7 @@
             "addressSpacePrefix": "[replace('10._.0.0/20', '_',string(parameters('consortiumMemberId')))]"
         },
         "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('vNet').name)]",
-        "subnetRef": "[concat(variables('vnetID'),'/subnets/', variables('subnetName'))]",
-        "noObserversOptionArray": [
-            "-dummy",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-        ]
+        "subnetRef": "[concat(variables('vnetID'),'/subnets/', variables('subnetName'))]"
     },
     "resources": [
         {
@@ -400,7 +384,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('baseUrl'), '/nested/VMAuth', '-', parameters('authType'), '.json')]",
+                    "uri": "[concat(parameters('baseUrl'), '/nested/bmVMLinkedTemplate.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -449,9 +433,6 @@
                     "adminPassword": {
                         "value": "[parameters('adminPassword')]"
                     },
-                    "adminSSHKey": {
-                        "value": "[parameters('adminSSHKey')]"
-                    },
                     "ubuntuImage": {
                         "value": "[variables('ubuntuImage')]"
                     },
@@ -476,7 +457,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('baseUrl'), '/nested/VMAuth', '-', parameters('authType'), '.json')]",
+                    "uri": "[concat(parameters('baseUrl'), '/nested/voterVMLinkedTemplate.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -525,9 +506,6 @@
                     "adminPassword": {
                         "value": "[parameters('adminPassword')]"
                     },
-                    "adminSSHKey": {
-                        "value": "[parameters('adminSSHKey')]"
-                    },
                     "ubuntuImage": {
                         "value": "[variables('ubuntuImage')]"
                     },
@@ -552,7 +530,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('baseUrl'), '/nested/VMAuth', variables('noObserversOptionArray')[parameters('numObservers')], '-', parameters('authType'), '.json')]",
+                    "uri": "[concat(parameters('baseUrl'), '/nested/observerVMLinkedTemplate.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -601,9 +579,6 @@
                     "adminPassword": {
                         "value": "[parameters('adminPassword')]"
                     },
-                    "adminSSHKey": {
-                        "value": "[parameters('adminSSHKey')]"
-                    },
                     "ubuntuImage": {
                         "value": "[variables('ubuntuImage')]"
                     },
@@ -628,7 +603,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('baseUrl'), '/nested/VMExtension.json')]",
+                    "uri": "[concat(parameters('baseUrl'), '/nested/vmExtensionLinkedTemplate.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -694,7 +669,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('baseUrl'), '/nested/VMExtension', variables('noObserversOptionArray')[parameters('numObservers')], '-Observers.json')]",
+                    "uri": "[concat(parameters('baseUrl'), '/nested/vmExtensionLinkedTemplateObservers.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
