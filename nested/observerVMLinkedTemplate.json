@@ -47,9 +47,6 @@
     "adminPassword": {
       "type": "securestring"
     },
-    "adminSSHKey": {
-      "type": "string"
-    },
     "ubuntuImage": {
       "type": "object"
     },
